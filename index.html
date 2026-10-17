@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>TBS Group - Kaizen & Ý Tưởng Cải Tiến</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --tbs-dark-green: #004728;
+      --tbs-lime-green: #84bd22;
+      --tbs-soft-bg: #f3f7f4;
+    }
+    body { background-color: var(--tbs-soft-bg); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1f2937; }
+    .app-container { max-width: 480px; margin: 0 auto; padding-bottom: 40px; }
+    .header-card {
+      background: linear-gradient(135deg, var(--tbs-dark-green) 0%, #0d5c37 55%, var(--tbs-lime-green) 100%);
+      color: white; border-radius: 0 0 28px 28px; padding: 22px 20px;
+      box-shadow: 0 8px 24px rgba(0, 71, 40, 0.22);
+    }
+    .brand-badge { background: rgba(255, 255, 255, 0.92); color: var(--tbs-dark-green); font-weight: 700; padding: 5px 12px; border-radius: 20px; font-size: 11px; }
+    .verified-badge { background: var(--tbs-lime-green); color: #fff; font-weight: 600; padding: 5px 10px; border-radius: 20px; font-size: 11px; }
+    .avatar-circle {
+      width: 64px; height: 64px; background: rgba(255, 255, 255, 0.18); border: 2.5px solid #ffffff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: bold; margin: 8px auto 10px;
+    }
+    .info-box { background: rgba(255, 255, 255, 0.14); border-radius: 14px; padding: 12px; margin-top: 14px; font-size: 12.5px; }
+    .nav-pills .nav-link { color: var(--tbs-dark-green); font-weight: 600; border-radius: 12px; }
+    .nav-pills .nav-link.active { background: linear-gradient(135deg, var(--tbs-dark-green), #156c42); color: white; }
+    .form-card { background: white; border-radius: 18px; padding: 20px; box-shadow: 0 4px 14px rgba(0, 71, 40, 0.06); }
+    .section-title { color: var(--tbs-dark-green); font-weight: 700; font-size: 15px; border-left: 4px solid var(--tbs-lime-green); padding-left: 10px; }
+    .voice-btn {
+      cursor: pointer; color: white; background: #166534; border: none;
+      padding: 4px 12px; border-radius: 14px; font-size: 12px; font-weight: 700;
+      transition: all 0.2s;
+    }
+    .voice-btn.listening { background: #dc2626; animation: pulseRed 1.2s infinite; }
+    @keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); } 70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); } 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); } }
+    .btn-tbs { background: linear-gradient(135deg, var(--tbs-dark-green) 0%, #156c42 70%, var(--tbs-lime-green) 100%); border: none; color: white; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <div class="header-card text-center">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <span class="brand-badge"><i class="fa-solid fa-leaf text-success me-1"></i> TBS GROUP | HỒ SƠ ĐIỆN TỬ</span>
+      <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Đã xác thực</span>
+    </div>
+    <div class="avatar-circle" id="avatarChar">?</div>
+    <h5 class="mb-1 fw-bold" id="empName">Đang tải thông tin...</h5>
+    <div class="small opacity-90" id="empMsnv">MSNV: ---</div>
+    
+    <div class="row g-2 info-box text-start">
+      <div class="col-6 border-end border-light border-opacity-25">
+        <div class="opacity-75" style="font-size:11px;"><i class="fa-solid fa-building"></i> ĐƠN VỊ</div>
+        <div class="fw-bold mt-1" id="empUnit">---</div>
+      </div>
+      <div class="col-6 ps-3">
+        <div class="opacity-75" style="font-size:11px;"><i class="fa-solid fa-sitemap"></i> BỘ PHẬN / CHUYỀN</div>
+        <div class="fw-bold mt-1" id="empDept">---</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-3 mt-3">
+    <ul class="nav nav-pills nav-fill bg-white p-1 rounded-3 shadow-sm mb-3" role="tablist">
+      <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-form" type="button"><i class="fa-solid fa-lightbulb me-1"></i> Gửi Đề Xuất</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-history" type="button"><i class="fa-solid fa-clock-rotate-left me-1"></i> Tiến Độ (<span id="countHistory">0</span>)</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="tab-form">
+        <div class="form-card">
+          <div class="section-title mb-3">PHIẾU GỬI Ý TƯỞNG / ĐÓNG GÓP Ý KIẾN</div>
+          
+          <form id="kaizenForm" onsubmit="handleFormSubmit(event)">
+            <div class="mb-3">
+              <label class="form-label small fw-bold">1. Phân loại nội dung <span class="text-danger">*</span></label>
+              <select class="form-select" id="phanLoai" required>
+                <option value="Đề xuất cải tiến (Kaizen)">💡 Đề xuất ý tưởng cải tiến (Kaizen)</option>
+                <option value="Báo cáo khó khăn / Vấn đề">⚠️ Nêu vấn đề khó khăn gặp phải</option>
+                <option value="Đóng góp ý kiến">💬 Đóng góp ý kiến xây dựng</option>
+                <option value="An toàn & 5S">🛡️ An toàn lao động & 5S</option>
+              </select>
+            </div>
+
+            <!-- Mục 2: Hiện trạng có nút Voice trực tiếp -->
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label class="form-label small fw-bold mb-0">2. Hiện trạng / Vấn đề <span class="text-danger">*</span></label>
+                <button type="button" class="voice-btn" id="btnVoice_hienTrang" onclick="startDirectVoice('hienTrang', this)">
+                  <i class="fa-solid fa-microphone"></i> 🎤 Bấm để nói
+                </button>
+              </div>
+              <textarea class="form-control" id="hienTrang" rows="3" placeholder="Bấm 'Bấm để nói' hoặc gõ trực tiếp..." required></textarea>
+            </div>
+
+            <!-- Mục 3: Giải pháp có nút Voice trực tiếp -->
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label class="form-label small fw-bold mb-0">3. Đề xuất giải pháp</label>
+                <button type="button" class="voice-btn" id="btnVoice_giaiPhap" onclick="startDirectVoice('giaiPhap', this)">
+                  <i class="fa-solid fa-microphone"></i> 🎤 Bấm để nói
+                </button>
+              </div>
+              <textarea class="form-control" id="giaiPhap" rows="3" placeholder="Bấm 'Bấm để nói' hoặc gõ trực tiếp..."></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">4. Đính kèm ảnh minh chứng</label>
+              <input class="form-control" type="file" id="imageInput" accept="image/*">
+            </div>
+
+            <button type="submit" id="btnSubmit" class="btn btn-tbs w-100 py-2 rounded-3">
+              <i class="fa-solid fa-paper-plane me-1"></i> GỬI THÔNG TIN ĐỀ XUẤT
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="tab-history">
+        <div id="historyList"><div class="text-center text-muted py-4">Đang tải lịch sử...</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ⚠️ THAY ĐƯỜNG LINK WEB APP GOOGLE APPS SCRIPT CỦA BẠN VÀO DƯỚI ĐÂY:
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzaYu8FQk-Jup7Nr_qlKGlpFJPK7gD9gYlmiOXJhBLm4QxZYRfsHJapYokNW__zLS2y-A/exec";
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const currentMsnv = urlParams.get('msnv') || "";
+  let currentEmp = {};
+
+  window.onload = function() {
+    if (!currentMsnv) {
+      let inputMsnv = prompt("Vui lòng nhập Mã Số Nhân Viên của bạn:");
+      if (inputMsnv) loadData(inputMsnv);
+      else document.getElementById('empName').innerText = "Chưa xác định MSNV";
+    } else {
+      loadData(currentMsnv);
+    }
+  };
+
+  function loadData(msnv) {
+    fetch(`${APPS_SCRIPT_URL}?msnv=${msnv}`)
+      .then(res => res.json())
+      .then(res => {
+        if (!res.found) {
+          document.getElementById('empName').innerText = "Không tìm thấy NV!";
+          document.getElementById('empMsnv').innerText = "MSNV: " + msnv;
+          return;
+        }
+        currentEmp = res.emp;
+        document.getElementById('empName').innerText = res.emp.hoTen;
+        document.getElementById('empMsnv').innerText = "MSNV: " + res.emp.msnv;
+        document.getElementById('empUnit').innerText = res.emp.donVi || "---";
+        document.getElementById('empDept').innerText = res.emp.boPhan || "---";
+        document.getElementById('avatarChar').innerText = res.emp.hoTen.trim().split(' ').pop().charAt(0);
+        renderHistory(res.history);
+      })
+      .catch(err => alert("Lỗi tải dữ liệu nhân viên: " + err));
+  }
+
+  function renderHistory(list) {
+    document.getElementById('countHistory').innerText = list.length;
+    const container = document.getElementById('historyList');
+    if (list.length === 0) {
+      container.innerHTML = '<div class="form-card text-center text-muted py-4">Bạn chưa gửi đề xuất nào.</div>';
+      return;
+    }
+    let html = '';
+    list.forEach(item => {
+      let badgeColor = 'bg-warning text-dark';
+      if (item.trangThai.includes('hoàn thành') || item.trangThai.includes('Duyệt')) badgeColor = 'bg-success';
+      if (item.trangThai.includes('Không khả thi')) badgeColor = 'bg-danger';
+      html += `
+        <div class="form-card mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-bold small" style="color: #004728;">#${item.maDeXuat} - ${item.phanLoai}</span>
+            <span class="badge ${badgeColor}">${item.trangThai}</span>
+          </div>
+          <div class="small text-muted mb-2"><i class="fa-regular fa-clock"></i> ${item.thoiGian}</div>
+          <div class="small mb-1"><strong>Hiện trạng:</strong> ${item.hienTrang}</div>
+          <div class="small mb-2"><strong>Đề xuất:</strong> ${item.giaiPhap || '---'}</div>
+          ${item.linkAnh ? `<a href="${item.linkAnh}" target="_blank" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-image"></i> Xem ảnh</a>` : ''}
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+  }
+
+  // TÍNH NĂNG BẬT TRỰC TIẾP VOICE (SPEECH RECOGNITION CHUẨN XÁC 100%)
+  function startDirectVoice(targetId, btn) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Trình duyệt của bạn không hỗ trợ nhận diện giọng nói trực tiếp. Vui lòng dùng Chrome hoặc Safari!");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'vi-VN';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    const el = document.getElementById(targetId);
+
+    recognition.onstart = function() {
+      btn.classList.add('listening');
+      btn.innerHTML = '<i class="fa-solid fa-circle-stop"></i> 🔴 Đang nghe...';
+    };
+
+    recognition.onresult = function(e) {
+      const transcript = e.results[0][0].transcript;
+      const formatted = transcript.charAt(0).toUpperCase() + transcript.slice(1);
+      el.value = el.value ? el.value.trim() + ". " + formatted : formatted;
+    };
+
+    recognition.onerror = function(e) {
+      alert("Lỗi thu âm: " + e.error);
+      btn.classList.remove('listening');
+      btn.innerHTML = '<i class="fa-solid fa-microphone"></i> 🎤 Bấm để nói';
+    };
+
+    recognition.onend = function() {
+      btn.classList.remove('listening');
+      btn.innerHTML = '<i class="fa-solid fa-microphone"></i> 🎤 Bấm để nói';
+    };
+
+    try {
+      recognition.start();
+    } catch (err) {
+      alert("Không thể bật micro. Vui lòng cấp quyền micro cho trang web!");
+    }
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    if (!currentEmp.msnv) {
+      alert("Chưa có thông tin nhân viên!");
+      return;
+    }
+    const btn = document.getElementById('btnSubmit');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang gửi dữ liệu...';
+
+    const fileInput = document.getElementById('imageInput');
+    const sendData = {
+      msnv: currentEmp.msnv,
+      hoTen: currentEmp.hoTen,
+      boPhan: currentEmp.boPhan,
+      donVi: currentEmp.donVi,
+      phanLoai: document.getElementById('phanLoai').value,
+      hienTrang: document.getElementById('hienTrang').value,
+      giaiPhap: document.getElementById('giaiPhap').value,
+      imageBase64: null,
+      imageName: null
+    };
+
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        sendData.imageBase64 = event.target.result;
+        sendData.imageName = file.name;
+        postDataToServer(sendData, btn);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      postDataToServer(sendData, btn);
+    }
+  }
+
+  function postDataToServer(data, btn) {
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res => {
+      alert("🎉 Đã gửi thành công! Mã theo dõi: " + res.maDeXuat);
+      document.getElementById('kaizenForm').reset();
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> GỬI THÔNG TIN ĐỀ XUẤT';
+      loadData(currentEmp.msnv);
+    })
+    .catch(err => {
+      alert("Lỗi gửi dữ liệu: " + err);
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> GỬI THÔNG TIN ĐỀ XUẤT';
+    });
+  }
+</script>
+</body>
+</html>
