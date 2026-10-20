@@ -12,54 +12,89 @@
       --tbs-lime-green: #84bd22;
       --tbs-soft-bg: #f3f7f4;
     }
-    body { background-color: var(--tbs-soft-bg); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1f2937; }
+    body { background-color: var(--tbs-soft-bg); font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1f2937; }
     .app-container { max-width: 480px; margin: 0 auto; padding-bottom: 40px; }
+    
+    /* Header thiết kế chuẩn Mobile */
     .header-card {
       background: linear-gradient(135deg, var(--tbs-dark-green) 0%, #0d5c37 55%, var(--tbs-lime-green) 100%);
-      color: white; border-radius: 0 0 28px 28px; padding: 22px 20px;
-      box-shadow: 0 8px 24px rgba(0, 71, 40, 0.22);
+      color: white; border-radius: 0 0 26px 26px; padding: 16px 16px 22px;
+      box-shadow: 0 8px 24px rgba(0, 71, 40, 0.2);
     }
-    .brand-badge { background: rgba(255, 255, 255, 0.92); color: var(--tbs-dark-green); font-weight: 700; padding: 5px 12px; border-radius: 20px; font-size: 11px; }
-    .verified-badge { background: var(--tbs-lime-green); color: #fff; font-weight: 600; padding: 5px 10px; border-radius: 20px; font-size: 11px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .brand-badge {
+      background: rgba(255, 255, 255, 0.95); color: var(--tbs-dark-green);
+      font-weight: 700; padding: 5px 11px; border-radius: 20px; font-size: 11px;
+      white-space: nowrap; display: inline-flex; align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .verified-badge {
+      background: rgba(132, 189, 34, 0.95); color: #fff;
+      font-weight: 600; padding: 5px 10px; border-radius: 20px; font-size: 11px;
+      white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;
+    }
+    .factory-subtitle {
+      font-size: 12px; font-weight: 800; letter-spacing: 1.2px;
+      color: #e9f8ce; text-transform: uppercase; margin-bottom: 6px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
     .avatar-circle {
-      width: 64px; height: 64px; background: rgba(255, 255, 255, 0.18); border: 2.5px solid #ffffff; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: bold; margin: 8px auto 10px;
+      width: 60px; height: 60px; background: rgba(255, 255, 255, 0.18); border: 2.5px solid #ffffff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 4px auto 8px;
     }
-    .info-box { background: rgba(255, 255, 255, 0.14); border-radius: 14px; padding: 12px; margin-top: 14px; font-size: 12.5px; }
-    .nav-pills .nav-link { color: var(--tbs-dark-green); font-weight: 600; border-radius: 12px; }
+    .info-box { background: rgba(255, 255, 255, 0.14); border-radius: 14px; padding: 10px 12px; margin-top: 12px; }
+    .info-label { font-size: 10.5px; opacity: 0.85; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.3px; }
+    .info-value { font-size: 13.5px; font-weight: 700; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Tabs & Card */
+    .nav-pills .nav-link { color: var(--tbs-dark-green); font-weight: 600; border-radius: 10px; font-size: 14px; padding: 8px 12px; }
     .nav-pills .nav-link.active { background: linear-gradient(135deg, var(--tbs-dark-green), #156c42); color: white; }
-    .form-card { background: white; border-radius: 18px; padding: 20px; box-shadow: 0 4px 14px rgba(0, 71, 40, 0.06); }
-    .section-title { color: var(--tbs-dark-green); font-weight: 700; font-size: 15px; border-left: 4px solid var(--tbs-lime-green); padding-left: 10px; }
+    .form-card { background: white; border-radius: 18px; padding: 18px 16px; box-shadow: 0 4px 14px rgba(0, 71, 40, 0.06); }
+    .section-title {
+      color: var(--tbs-dark-green); font-weight: 800; font-size: 13.5px;
+      border-left: 4px solid var(--tbs-lime-green); padding-left: 9px;
+      white-space: nowrap; letter-spacing: -0.2px;
+    }
+
+    /* Label & Nút thu âm không bao giờ bị rớt dòng */
+    .field-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .field-label { font-size: 13px; font-weight: 700; margin-bottom: 0; white-space: nowrap; }
     .voice-btn {
       cursor: pointer; color: white; background: #166534; border: none;
-      padding: 4px 12px; border-radius: 14px; font-size: 12px; font-weight: 700;
-      transition: all 0.2s;
+      padding: 5px 11px; border-radius: 16px; font-size: 11.5px; font-weight: 600;
+      white-space: nowrap; display: inline-flex; align-items: center; gap: 5px;
+      transition: all 0.2s; flex-shrink: 0;
     }
     .voice-btn.listening { background: #dc2626; animation: pulseRed 1.2s infinite; }
     @keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); } 70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); } 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); } }
-    .btn-tbs { background: linear-gradient(135deg, var(--tbs-dark-green) 0%, #156c42 70%, var(--tbs-lime-green) 100%); border: none; color: white; font-weight: 700; }
+    .btn-tbs { background: linear-gradient(135deg, var(--tbs-dark-green) 0%, #156c42 70%, var(--tbs-lime-green) 100%); border: none; color: white; font-weight: 700; font-size: 14px; }
   </style>
 </head>
 <body>
 
 <div class="app-container">
   <div class="header-card text-center">
-    <div class="d-flex justify-content-between align-items-center mb-2">
-  <span class="brand-badge text-start" style="display: inline-block; line-height: 1.4; border-radius: 14px;"><i class="fa-solid fa-leaf text-success me-1"></i> HỒ SƠ ĐIỆN TỬ<br><span style="padding-left: 16px;">NHÀ MÁY HỘI AN</span></span>
+    <!-- Hàng huy hiệu trên cùng: Gọn gàng trên 1 dòng -->
+    <div class="top-bar">
+      <span class="brand-badge"><i class="fa-solid fa-leaf text-success me-1"></i> TBS GROUP | HỒ SƠ ĐIỆN TỬ</span>
       <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Đã xác thực</span>
     </div>
+    
+    <!-- Tên nhà máy tách riêng nổi bật, cân đối ở chính giữa -->
+    <div class="factory-subtitle"><i class="fa-solid fa-industry me-1"></i> NHÀ MÁY HỘI AN</div>
+
     <div class="avatar-circle" id="avatarChar">?</div>
     <h5 class="mb-1 fw-bold" id="empName">Đang tải thông tin...</h5>
     <div class="small opacity-90" id="empMsnv">MSNV: ---</div>
     
-    <div class="row g-2 info-box text-start">
-      <div class="col-6 border-end border-light border-opacity-25">
-        <div class="opacity-75" style="font-size:11px;"><i class="fa-solid fa-building"></i> ĐƠN VỊ</div>
-        <div class="fw-bold mt-1" id="empUnit">---</div>
+    <div class="row g-0 info-box text-start">
+      <div class="col-5 border-end border-light border-opacity-25 pe-2">
+        <div class="info-label"><i class="fa-solid fa-building me-1"></i>ĐƠN VỊ</div>
+        <div class="info-value" id="empUnit">---</div>
       </div>
-      <div class="col-6 ps-3">
-        <div class="opacity-75" style="font-size:11px;"><i class="fa-solid fa-sitemap"></i> BỘ PHẬN / CHUYỀN</div>
-        <div class="fw-bold mt-1" id="empDept">---</div>
+      <div class="col-7 ps-3">
+        <div class="info-label"><i class="fa-solid fa-sitemap me-1"></i>BỘ PHẬN / CHUYỀN</div>
+        <div class="info-value" id="empDept">---</div>
       </div>
     </div>
   </div>
@@ -81,8 +116,8 @@
           
           <form id="kaizenForm" onsubmit="handleFormSubmit(event)">
             <div class="mb-3">
-              <label class="form-label small fw-bold">1. Phân loại nội dung <span class="text-danger">*</span></label>
-              <select class="form-select" id="phanLoai" required>
+              <label class="field-label mb-1">1. Phân loại nội dung <span class="text-danger">*</span></label>
+              <select class="form-select form-select-sm py-2" id="phanLoai" required>
                 <option value="Đề xuất cải tiến (Kaizen)">💡 Đề xuất ý tưởng cải tiến (Kaizen)</option>
                 <option value="Báo cáo khó khăn / Vấn đề">⚠️ Nêu vấn đề khó khăn gặp phải</option>
                 <option value="Đóng góp ý kiến">💬 Đóng góp ý kiến xây dựng</option>
@@ -90,34 +125,34 @@
               </select>
             </div>
 
-            <!-- Mục 2: Hiện trạng có nút Voice trực tiếp -->
+            <!-- Mục 2: Đã tối ưu trên 1 dòng, bỏ icon micro trùng lặp -->
             <div class="mb-3">
-              <div class="d-flex justify-content-between align-items-center mb-1">
-                <label class="form-label small fw-bold mb-0">2. Hiện trạng / Vấn đề <span class="text-danger">*</span></label>
+              <div class="field-header">
+                <label class="field-label">2. Hiện trạng / Vấn đề <span class="text-danger">*</span></label>
                 <button type="button" class="voice-btn" id="btnVoice_hienTrang" onclick="startDirectVoice('hienTrang', this)">
-                  <i class="fa-solid fa-microphone"></i> 🎤 Bấm để nói
+                  <i class="fa-solid fa-microphone"></i> Bấm để nói
                 </button>
               </div>
               <textarea class="form-control" id="hienTrang" rows="3" placeholder="Bấm 'Bấm để nói' hoặc gõ trực tiếp..." required></textarea>
             </div>
 
-            <!-- Mục 3: Giải pháp có nút Voice trực tiếp -->
+            <!-- Mục 3: Đã tối ưu trên 1 dòng -->
             <div class="mb-3">
-              <div class="d-flex justify-content-between align-items-center mb-1">
-                <label class="form-label small fw-bold mb-0">3. Đề xuất giải pháp</label>
+              <div class="field-header">
+                <label class="field-label">3. Đề xuất giải pháp</label>
                 <button type="button" class="voice-btn" id="btnVoice_giaiPhap" onclick="startDirectVoice('giaiPhap', this)">
-                  <i class="fa-solid fa-microphone"></i> 🎤 Bấm để nói
+                  <i class="fa-solid fa-microphone"></i> Bấm để nói
                 </button>
               </div>
               <textarea class="form-control" id="giaiPhap" rows="3" placeholder="Bấm 'Bấm để nói' hoặc gõ trực tiếp..."></textarea>
             </div>
 
             <div class="mb-3">
-              <label class="form-label small fw-bold">4. Đính kèm ảnh minh chứng</label>
-              <input class="form-control" type="file" id="imageInput" accept="image/*">
+              <label class="field-label mb-1">4. Đính kèm ảnh minh chứng</label>
+              <input class="form-control form-control-sm py-2" type="file" id="imageInput" accept="image/*">
             </div>
 
-            <button type="submit" id="btnSubmit" class="btn btn-tbs w-100 py-2 rounded-3">
+            <button type="submit" id="btnSubmit" class="btn btn-tbs w-100 py-2 rounded-3 mt-1">
               <i class="fa-solid fa-paper-plane me-1"></i> GỬI THÔNG TIN ĐỀ XUẤT
             </button>
           </form>
@@ -133,10 +168,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // ==========================================
-  // DÁN ĐƯỜNG LINK WEB APP CỦA BẠN VÀO DƯỚI ĐÂY (Phải có đuôi /exec)
-  // ==========================================
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwn2Rq36KbzQF2yURFGbTVR_vbt5knDsaCpSQMNSBA0QzG7Fc62nSrb95pD4M0rqgJbug/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzaYu8FQk-Jup7Nr_qIKGIpFJPK7gD9gYlmiOXJhBLm4QxZYRfsHJapYokNW__zLS2y-A/exec";
 
   const urlParams = new URLSearchParams(window.location.search);
   const currentMsnv = urlParams.get('msnv') || "";
@@ -153,7 +185,7 @@
   };
 
   function loadData(msnv) {
-    fetch(`${APPS_SCRIPT_URL}?msnv=${msnv}`)
+    fetch(`${APPS_SCRIPT_URL}?msnv=${encodeURIComponent(msnv.trim())}`)
       .then(res => res.json())
       .then(res => {
         if (!res.found) {
@@ -202,11 +234,10 @@
     container.innerHTML = html;
   }
 
-  // TÍNH NĂNG BẬT TRỰC TIẾP VOICE (SPEECH RECOGNITION CHUẨN XÁC 100%)
   function startDirectVoice(targetId, btn) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert("Trình duyệt của bạn không hỗ trợ nhận diện giọng nói trực tiếp. Vui lòng dùng Chrome hoặc Safari!");
+      alert("Trình duyệt không hỗ trợ nhận diện giọng nói trực tiếp. Vui lòng dùng Chrome/Safari hoặc bấm icon Micro trên bàn phím điện thoại!");
       return;
     }
 
@@ -219,7 +250,7 @@
 
     recognition.onstart = function() {
       btn.classList.add('listening');
-      btn.innerHTML = '<i class="fa-solid fa-circle-stop"></i> 🔴 Đang nghe...';
+      btn.innerHTML = '<i class="fa-solid fa-circle-stop"></i> Đang nghe...';
     };
 
     recognition.onresult = function(e) {
@@ -231,12 +262,12 @@
     recognition.onerror = function(e) {
       alert("Lỗi thu âm: " + e.error);
       btn.classList.remove('listening');
-      btn.innerHTML = '<i class="fa-solid fa-microphone"></i> 🎤 Bấm để nói';
+      btn.innerHTML = '<i class="fa-solid fa-microphone"></i> Bấm để nói';
     };
 
     recognition.onend = function() {
       btn.classList.remove('listening');
-      btn.innerHTML = '<i class="fa-solid fa-microphone"></i> 🎤 Bấm để nói';
+      btn.innerHTML = '<i class="fa-solid fa-microphone"></i> Bấm để nói';
     };
 
     try {
@@ -301,11 +332,10 @@
       }
     })
     .catch(err => {
-      // Nếu gửi lỗi và chưa thử quá 2 lần, hệ thống sẽ tự động gửi lại (Retry)
       if (retryCount < 2) {
         setTimeout(() => {
           postDataToServer(data, btn, retryCount + 1);
-        }, 1000); // Đợi 1 giây rồi gửi lại
+        }, 1000);
       } else {
         alert("⚠️ Gửi dữ liệu không thành công do nghẽn mạng. Vui lòng bấm gửi lại!");
         btn.disabled = false;
