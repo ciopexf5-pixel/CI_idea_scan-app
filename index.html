@@ -283,23 +283,34 @@
     }
   }
 
-  function postDataToServer(data, btn) {
+  function postDataToServer(data, btn, retryCount = 0) {
     fetch(APPS_SCRIPT_URL, {
       method: "POST",
       body: JSON.stringify(data)
     })
     .then(res => res.json())
     .then(res => {
-      alert("🎉 Đã gửi thành công! Mã theo dõi: " + res.maDeXuat);
-      document.getElementById('kaizenForm').reset();
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> GỬI THÔNG TIN ĐỀ XUẤT';
-      loadData(currentEmp.msnv);
+      if (res.success) {
+        alert("🎉 Đã gửi thành công! Mã theo dõi: " + res.maDeXuat);
+        document.getElementById('kaizenForm').reset();
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> GỬI THÔNG TIN ĐỀ XUẤT';
+        loadData(currentEmp.msnv);
+      } else {
+        throw new Error(res.error || "Lỗi từ máy chủ");
+      }
     })
     .catch(err => {
-      alert("Lỗi gửi dữ liệu: " + err);
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> GỬI THÔNG TIN ĐỀ XUẤT';
+      // Nếu gửi lỗi và chưa thử quá 2 lần, hệ thống sẽ tự động gửi lại (Retry)
+      if (retryCount < 2) {
+        setTimeout(() => {
+          postDataToServer(data, btn, retryCount + 1);
+        }, 1000); // Đợi 1 giây rồi gửi lại
+      } else {
+        alert("⚠️ Gửi dữ liệu không thành công do nghẽn mạng. Vui lòng bấm gửi lại!");
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> GỬI THÔNG TIN ĐỀ XUẤT';
+      }
     });
   }
 </script>
